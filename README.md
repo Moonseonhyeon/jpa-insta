@@ -2,9 +2,7 @@
 
 ## 의존성
 
-```
 ![image](https://user-images.githubusercontent.com/62128942/90703499-e9149c00-e2c8-11ea-9d54-26b5014264ca.png)
-```
 
 ## DB 세팅
 
@@ -31,25 +29,7 @@ character-set-server=utf8
    create database insta;
    use insta;
 
-3. 환경설정
-
-```
-<!-- JSP 템플릿 엔진 -->
-<dependency>
-	<groupId>org.apache.tomcat</groupId>
-	<artifactId>tomcat-jasper</artifactId>
-	<version>9.0.22</version>
-</dependency>
-
-<!-- JSTL -->
-<dependency>
-	<groupId>javax.servlet</groupId>
-	<artifactId>jstl</artifactId>
-	<version>1.2</version>
-</dependency>
-```
-
-yml파일
+## application.yml 설정
 
 ```
 server:
