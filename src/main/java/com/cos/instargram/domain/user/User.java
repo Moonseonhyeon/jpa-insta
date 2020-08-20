@@ -1,0 +1,38 @@
+package com.cos.instargram.domain.user;
+
+import java.sql.Timestamp;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import lombok.Data;
+
+@Entity
+@Data
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String username;
+	private String password;
+	private String name;
+	private String website;
+	private String bio; //자기소개
+	//private String email;	
+	private String phone;
+	private String gender;
+	private String profileImage;
+	@Enumerated(EnumType.STRING) //db는 오브젝트가 없으니까 이거 그냥 스트링으로 알으라고 디비한테 알려주는 것임.
+	private UserRole role;
+	private String provider;
+	private String providerId;
+	@CreationTimestamp
+	private Timestamp createDate;	
+}
