@@ -30,7 +30,7 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String Content;
+	private String content;
 	
 	@ManyToOne
 	private Image image;

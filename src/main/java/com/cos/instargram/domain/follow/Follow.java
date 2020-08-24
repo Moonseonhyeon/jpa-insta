@@ -11,9 +11,6 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.cos.instargram.domain.image.Image;
-import com.cos.instargram.domain.like.Like;
-import com.cos.instargram.domain.like.Like.LikeBuilder;
 import com.cos.instargram.domain.user.User;
 
 import lombok.AllArgsConstructor;
@@ -34,11 +31,11 @@ public class Follow {
 	private int id;
 	
 	@ManyToOne // EAGER 왜냐면 이게 collection이 아니니까
-	@JoinColumn(name = "fromUser")
+	@JoinColumn(name = "fromUserId")
 	private User fromUser;
 	
 	@ManyToOne
-	@JoinColumn(name = "toUser")
+	@JoinColumn(name = "toUserId")
 	private User toUser;
 	
 	//@ManyToMany 가 있으면 중간테이블 저절로 만들어지지만 추가적으로 컬럼을 내가 만들수가 없음.

@@ -32,7 +32,7 @@ public class Tag {
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name = "imageId") //FK를 들고있는 애를 연관관계의 주인이라고 한다. //디비 테이블 컬럼명을 정해준다.
+	@JoinColumn(name="imageId") //FK를 들고있는 애를 연관관계의 주인이라고 한다. //디비 테이블 컬럼명을 정해준다.
 	private Image image;
 	
 	@CreationTimestamp

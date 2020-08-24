@@ -1,19 +1,19 @@
-package com.cos.instargram.domain.like;
+package com.cos.instargram.domain.likes;
 
 import java.sql.Timestamp;
-import java.util.List;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.cos.instargram.domain.image.Image;
-import com.cos.instargram.domain.image.Image.ImageBuilder;
-import com.cos.instargram.domain.tag.Tag;
+
 import com.cos.instargram.domain.user.User;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Like {
+public class Likes {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +37,10 @@ public class Like {
 	//그래서 내가 테이블 하나만들어서 서로서로 ManyToOne을 걸어요. 그래서 추가적으로 clolum을 넣어요. Many(userID)ToOne(중간 테이블)
 	
 	@ManyToOne //기본값 EAGER
+	@JoinColumn(name = "userId")
 	private User user;
-	@ManyToOne 
+	@ManyToOne
+	@JoinColumn(name = "imageId")
 	private Image image;
 	
 	@CreationTimestamp
