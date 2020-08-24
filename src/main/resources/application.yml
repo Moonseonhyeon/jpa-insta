@@ -15,9 +15,9 @@ spring:
     password: bitc5600
     
   jpa:
-    open-in-view: true
+    open-in-view: true #db connection을 view단 까지 오픈해줌 그래서 lazy loading을 가능하게 해준다.
     hibernate:
-      ddl-auto: create
+      ddl-auto: update #update 
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
