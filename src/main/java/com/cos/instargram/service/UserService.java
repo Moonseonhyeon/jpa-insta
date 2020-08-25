@@ -9,20 +9,18 @@ import com.cos.instargram.web.dto.JoinReqDto;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserService {
-
 	
-	private final UserRepository userRepository;	
+	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Transactional
 	public void 회원가입(JoinReqDto joinReqDto) {
-		String encPassword = bCryptPasswordEncoder.encode(joinReqDto.getPassword());
+		String encPassword = 
+				bCryptPasswordEncoder.encode(joinReqDto.getPassword());
 		joinReqDto.setPassword(encPassword);
 		userRepository.save(joinReqDto.toEntity());
-				
 	}
-	
 }
