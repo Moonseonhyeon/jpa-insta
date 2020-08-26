@@ -2,6 +2,8 @@ package com.cos.instargram.config.oauth;
 
 import java.util.function.Supplier;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.cos.instargram.config.auth.PrincipalDetails;
+import com.cos.instargram.config.auth.dto.LoginUser;
 import com.cos.instargram.domain.user.User;
 import com.cos.instargram.domain.user.UserRepository;
 import com.cos.instargram.domain.user.UserRole;
@@ -30,6 +33,9 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService{
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private HttpSession session;
 	
 	@Value("${cos.secret}")
 	private String cosSecret; //yml파일
@@ -72,6 +78,8 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService{
 			}
 						
 		});	 
+		
+		session.setAttribute("loginUser",  new LoginUser(userEntity));
 			return userEntity;		
 		//강제 로그인 진행 -> Authenticatioin객체를 세션에 등록하기
 	
