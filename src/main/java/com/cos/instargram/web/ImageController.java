@@ -14,7 +14,8 @@ import com.cos.instargram.config.auth.dto.LoginUser;
 public class ImageController {
 	
 	@GetMapping({" ", "/",  "/image/feed"})
-	public String feed(@AuthenticationPrincipal PrincipalDetails principal, HttpSession session) {
+	public String feed(
+			@AuthenticationPrincipal PrincipalDetails principal, HttpSession session) {
 		System.out.println(principal.getUser());
 		System.out.println("@AuthenticationPrincipal : "+ principal.getUser());
 		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
