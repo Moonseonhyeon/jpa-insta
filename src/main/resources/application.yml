@@ -32,6 +32,16 @@ spring:
     user:
       name: cos
       password: 1234   
+      
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 307332003705679
+            client-secret: 2f05a9bed3f9cdb6556654908db07869
+            scope:
+            - email
+            - public_profile ##문서보고 scope 적기
 
 cos: #변수임
   secret: 겟인데어 #자바에서 가져다 쓸 수 있음

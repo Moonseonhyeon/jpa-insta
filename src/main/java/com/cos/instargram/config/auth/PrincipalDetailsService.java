@@ -20,10 +20,12 @@ public class PrincipalDetailsService implements UserDetailsService{
 	private final UserRepository userRepository;
 	
 	//Security Session > Authentication > UserDetails
+	//해당함수가 정상적으로 리턴되면 @AuthenticationPrincipal 어노테이션 활성화됨.
 	//form 로그인 할 때 이 함수가 호출됩니다
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println("PrincipalDetailsService : 진입");
+		log.info("loadUserByUsername : username : " + username);
 		User userEntity = userRepository.findByUsername(username).get();
 		return new PrincipalDetails(userEntity);
 	}
