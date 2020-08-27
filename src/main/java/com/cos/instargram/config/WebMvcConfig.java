@@ -50,8 +50,8 @@ public class WebMvcConfig implements WebMvcConfigurer{ //-> web.xml
 			
 			@Override
 			public boolean supportsParameter(MethodParameter parameter) {				
-				
-				return true;			
+				boolean isCosAnnotation = parameter.getParameterAnnotation(CosAnnotation.class) != null;
+				return isCosAnnotation;
 			}
 			
 			@Override

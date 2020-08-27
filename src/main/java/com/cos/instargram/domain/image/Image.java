@@ -42,7 +42,7 @@ public class Image {
 	private User user; //오브젝트랑 relation. 실제 DB에는 userId들어가지만 //select할 때는 오브젝트
 	
 	//Image를 select하면 여러개의 Tag가 딸려옴. 부하가 커요. 내가 안적어도 기본전략이 LAZY. (select할 때 기본적으로 null 하지만 내가 getTags()호출하면 디비에 select해서 영속성으로 해서 가져온다. 이렇게 lazyload하면 view 단에서 부하가 적다.)
-	@OneToMany(mappedBy = "image", fetch = FetchType.LAZY) //하나의 이미지에 많은 태그  //나는 연관관계아니다. 외례키가(FK)가 아니고 연관관계의 주인은 imageId이다. 이 어노테이션에 설정을 자바가 알고있는 변수명인 image를 적어주세요! //FK의 주인을 정하는 어노테이션이다. 
+	@OneToMany(mappedBy = "image", fetch = FetchType.LAZY) //하나의 이미지에 많은 태그  //나는 연관관계주인이 아니다. 외례키가(FK)가 아니고 연관관계의 주인은 imageId이다. 이 어노테이션에 설정을 자바가 알고있는 변수명인 image를 적어주세요! //FK의 주인을 정하는 어노테이션이다. 
 	@JsonIgnoreProperties({"image"}) //이렇게 image를 select할 때 접근할 때 Tag내부의 image는 json이 getter호출 하지마~! //Jackson한테 내리는 명령어 //무함참조 막아주는 방법임.
 	private List<Tag> tags;
 	
