@@ -79,7 +79,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	@Override
 	public Map<String, Object> getAttributes() {
 		//페이스북, 구글, 값이 다 다르니까 Map으로 받음.
-		//private Map<String,Object> attributes;
 		return attributes;
 	}
 

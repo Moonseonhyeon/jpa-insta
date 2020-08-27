@@ -46,13 +46,14 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService{
 		log.info(userRequest.getClientRegistration().toString());
 		
 		OAuth2User oAuth2User = super.loadUser(userRequest); //페이스북으로 부터 프로필 정보를 받아서 oAuth2User에 쏙 넣음.
+		//super.loadUser()는 OAuth 서버에 내 서버정보와 AccessToken을 던져서
+		//회원 프로필 정보를 OAuth2User타입으로 받아온다. Map으로 생겼다.
 		System.out.println("OAuth2User : "+oAuth2User.getAttributes());
 		
 		User userEntity = oauthLoginOrJoin(oAuth2User);
 		
 		return new PrincipalDetails(userEntity, oAuth2User.getAttributes());  //페이스북으로 접근하면 회원가입시킴
-		//super.loadUser()는 OAuth 서버에 내 서버정보와 AccessToken을 던져
-		//회원 프로필 정보를 OAuth2User타입으로 받아온다. Map으로 생겼다.
+		
 	}
 	
 	private User oauthLoginOrJoin(OAuth2User oAuth2User) {
