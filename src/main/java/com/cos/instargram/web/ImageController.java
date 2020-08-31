@@ -45,9 +45,8 @@ public class ImageController {
 	@PostMapping("/image")
 	public String imageUpload(
 			@LoginUserAnnotation LoginUser loginUser,
-			ImageReqDto  imageReqDto) {
-		System.out.println(imageReqDto);
-		ImageService.사진업로드(imageReqDto, loginUser.getId());
+			ImageReqDto imageReqDto) {		
+		ImageService.사진업로드(imageReqDto, loginUser.getId());		
 		return "redirect:/";
 	}
 	

@@ -36,6 +36,7 @@ public class ImageService {
 	
 	@Transactional
 	public void  사진업로드(ImageReqDto imageReqDto, int userId) {
+		System.out.println("사진업로드");
 		
 		User userEntity = userRepository.findById(userId)
 				.orElseThrow(null);
@@ -51,7 +52,7 @@ public class ImageService {
 		} 
 		
 		//1. Image 저장
-		Image image = imageReqDto.toEntity(imageFilename, userEntity); //꼭 파일명만 디비에 넣어야 한다.
+		Image image = imageReqDto.toEntity(imageFilename, userEntity); //꼭 파일명(imageFilepath)만 디비에 넣어야 한다.
 		Image imageEntity = imageRepository.save(image);	
 		
 		// 2. Tag 저장
@@ -62,6 +63,7 @@ public class ImageService {
 							.name(name)
 							.build();
 					tagRepository.save(tag);
+					
 				}
 	}
 	

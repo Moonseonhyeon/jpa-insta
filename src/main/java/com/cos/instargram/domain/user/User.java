@@ -1,6 +1,8 @@
 package com.cos.instargram.domain.user;
 
+
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,10 +11,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.cos.instargram.web.dto.JoinReqDto;
+import com.cos.instargram.domain.image.Image;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,7 +41,7 @@ public class User {
 	private String name;
 	private String website;
 	private String bio; //자기소개
-	private String email;	//모델만들때 주석처리 한거 품.
+	private String email;	//모델 만들 때 주석처리 한거 품.
 	private String phone;
 	private String gender;
 	private String profileImage;
@@ -44,8 +50,5 @@ public class User {
 	private String provider;
 	private String providerId;
 	@CreationTimestamp
-	private Timestamp createDate;	
-	
-	
-	
+	private Timestamp createDate;		
 }

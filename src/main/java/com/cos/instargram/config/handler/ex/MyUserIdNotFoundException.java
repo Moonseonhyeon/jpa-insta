@@ -1,0 +1,21 @@
+package com.cos.instargram.config.handler.ex;
+
+public class MyUserIdNotFoundException extends RuntimeException{ // 실행 시 예외 종류입니다.
+	private String message;
+
+	public MyUserIdNotFoundException() {
+		this.message = "해당 유저의 id를 찾을 수 없습니다.";
+	}
+
+	public MyUserIdNotFoundException(String message) {	
+		this.message = message;
+	}
+
+	@Override
+	public String getMessage() {
+		return message;
+	}
+	
+	//Exception Throwable Runtime MyUser~
+	
+}
