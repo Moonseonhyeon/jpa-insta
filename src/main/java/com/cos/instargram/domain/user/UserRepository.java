@@ -9,5 +9,6 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	//옵셔널로 만들어야 함. 그래야 null처라 할수 있음.
 	
 	Optional<User> findByUsername(String username);
+	//여기에 Entity타입으로 만 리턴받을 수 있음.
 	
 }

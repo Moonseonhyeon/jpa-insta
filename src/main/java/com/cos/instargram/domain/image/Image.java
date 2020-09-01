@@ -3,6 +3,8 @@ package com.cos.instargram.domain.image;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,12 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.cos.instargram.domain.tag.Tag;
 import com.cos.instargram.domain.user.User;
+import com.cos.instargram.web.dto.UserProfileImageRespDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +28,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+//spring으로 회귀
+@SqlResultSetMapping(
+		name = "UserProfileImageRespDtoMapping",
+		classes = @ConstructorResult(
+			targetClass = UserProfileImageRespDto.class,
+			columns = {
+					@ColumnResult(name="id", type = Integer.class),
+					@ColumnResult(name="imageUrl", type = String.class),
+					@ColumnResult(name="likeCount", type = Integer.class),
+					@ColumnResult(name="commentCount", type = Integer.class)
+					//워시자료형만 가능 오브젝트는 안됨.
+			}
+			)
+		)
 @Entity
 @Data
 @NoArgsConstructor
