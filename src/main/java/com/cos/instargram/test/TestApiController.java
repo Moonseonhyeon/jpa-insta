@@ -109,7 +109,7 @@ public class TestApiController {
 		}
 		
 			
-		@PostMapping("/test/api/like/{imageId}/like")
+		@GetMapping("/test/api/like/{imageId}/like")
 		public String like (@PathVariable int imageId) {
 			Image imageEntity = imageRepository.findById(imageId).get();
 			User userEntity = userRepository.findById(3).get();

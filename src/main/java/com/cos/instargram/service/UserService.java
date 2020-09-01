@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.instargram.config.auth.dto.LoginUser;
 import com.cos.instargram.config.handler.ex.MyUserIdNotFoundException;
-import com.cos.instargram.domain.image.Image;
+import com.cos.instargram.domain.follow.FollowRepository;
 import com.cos.instargram.domain.image.ImageRepository;
 import com.cos.instargram.domain.user.User;
 import com.cos.instargram.domain.user.UserRepository;
@@ -32,7 +32,7 @@ public class UserService {
 	@PersistenceContext
 	EntityManager em;
 	private final UserRepository userRepository;
-	private final ImageRepository imageRepository;
+	private final FollowRepository followRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Transactional
@@ -53,6 +53,7 @@ public class UserService {
 		int imageCount;
 		int followerCount;
 		int followingCount;
+		boolean followState;
 
 		User userEntity = userRepository.findById(id)
 				.orElseThrow(new Supplier<MyUserIdNotFoundException>() {
@@ -79,27 +80,32 @@ public class UserService {
         //이렇게 캐싱해줌!		
 		//물론 DB에도 캐싱하고 있지만 em이 관리 해주니까 IO를 줄여준다.
 		
-		//통계쿼리가 필요하면 mybatis 아니면 jpa쓰기
+		//통계쿼리가 필요하면 mybatis 
 		//JPA + QueryDSL 복잡한 쿼리 쓰고 싶으면 쓰세요!
 		
 		imageCount = imagesEntity.size();
 		
-		// 2. 팔로우 수 (수정해야됨)
-		followerCount = 50;
-		followingCount = 100;
-
-		// 3. 최종마무리
-		UserProfileRespDto userProfileRespDto = 
-				UserProfileRespDto.builder()
-				.pageHost(id==loginUser.getId())
-				.followerCount(followerCount)
-				.followingCount(followingCount)
-				.imageCount(imageCount)
-				.user(userEntity)
-				.images(imagesEntity)
-				.build();
-
-		return userProfileRespDto;		
+		// 2. 팔로우 수
+		followerCount = followRepository.mCountByFollower(id); //페이지 주인의 id
+		followingCount = followRepository.mCountByFollowing(id);
+		// 3. 팔로우 유무
+		followState = followRepository.mFollowState(loginUser.getId(), id) == 1 ? true : false;
+		
+		System.out.println("followState : "+ followState);
+		
+		// 4. 최종마무리
+				UserProfileRespDto userProfileRespDto = 
+						UserProfileRespDto.builder()
+						.pageHost(id==loginUser.getId())
+						.followState(followState)
+						.followerCount(followerCount)
+						.followingCount(followingCount)
+						.imageCount(imageCount)
+						.user(userEntity)
+						.images(imagesEntity) // 수정완료(Dto만듬) (댓글수, 좋아요수)
+						.build();
+				
+				return userProfileRespDto;
 		//이렇게 Dto를 리턴하면 장점은 lazyload가 일어나지 않아서 무한 참조 하지 않게 할 수 있음.
 	}
 }

@@ -1,6 +1,6 @@
 {{>layout/header}}
 <main id="profile">
-		<header class="profile__header">
+	<header class="profile__header">
 		<div class="avatar__container">
 			<form id="frm_profile_img" action="/user/profileUpload" method="post">
 				<input type="file" name="profileImage" style="display: none;" />
@@ -12,25 +12,33 @@
 			<div class="profile__title">
 				<h1>{{respDto.user.username}}</h1>
 				{{^respDto.pageHost}}
-				<a href="#">
-					<button class="profile_edit_btn">팔로우</button>
-				</a>
+				    {{#respDto.followState}}
+				    	<a href="#">
+							<button onclick="unFollow({{respDto.user.id}})" class="profile_edit_btn">팔로우 취소</button>
+						</a>
+				    {{/respDto.followState}} 
+				    
+				    {{^respDto.followState}}
+				    	<a href="#">
+							<button onclick="follow({{respDto.user.id}})" class="profile_follow_btn">팔로우</button>
+						</a>
+				    {{/respDto.followState}} 
 				{{/respDto.pageHost}}
 				
 				{{#respDto.pageHost}}
-				<a href="#">
-					<button class="profile_edit_btn">회원수정</button>
-				</a>
-				<a href="/image/uploadForm">
-					<button class="profile_edit_btn">사진등록</button>	
-				</a>
-				<a href="#">
-					<i class="fa fa-cog fa-lg"></i>
-				</a>
+					<a href="#">
+						<button class="profile_edit_btn">회원수정</button>
+					</a>
+					<a href="/image/uploadForm">
+						<button class="profile_edit_btn">사진등록</button>	
+					</a>
+					<a href="#">
+						<i class="fa fa-cog fa-lg"></i>
+					</a>
 				{{/respDto.pageHost}}
 				
 			</div>
-		<ul class="profile__stats">
+			<ul class="profile__stats">
 				<li class="profile__stat"><span class="profile__stat-number">{{respDto.imageCount}}</span>
 					posts</li>
 				<li class="profile__stat"><span class="profile__stat-number">{{respDto.followerCount}}</span>
@@ -61,10 +69,16 @@
 				<!-- 유저가 업로드한 Feed 사진 -->
 				{{#respDto.images}}
 					<div class="profile__photo">
-						<a href="image-detail.html"> <img src="/upload/{{imageUrl}}"></a>
+						<a href="#"> 
+							<img src="/upload/{{imageUrl}}">
+						</a>
 						<div class="profile__photo-overlay">
-							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> {{likeCount}}</span> 
-							<span class="profile__photo-stat"> <i class="fa fa-comment"></i> {{commentCount}}</span>
+							<span class="profile__photo-stat"> 
+								<i class="fa fa-heart"></i> {{likeCount}}
+							</span> 
+							<span class="profile__photo-stat"> 
+								<i class="fa fa-comment"></i> {{commentCount}}
+							</span>
 						</div>
 					</div>									
 				{{/respDto.images}}
@@ -75,9 +89,9 @@
 <div class="profile__overlay">
 	<i class="fa fa-times"></i>
 	<div class="profile__overlay-container">
-		<a href="#" class="profile__overlay-link">Change password</a> <a href="#"
-			class="profile__overlay-link" id="logout">Log Out</a> <a href="#"
-			class="profile__overlay-link" id="cancel">Cancel</a>
+		<a href="#" class="profile__overlay-link">Change password</a> 
+		<a href="/auth/logout" class="profile__overlay-link" id="logout">Log Out</a> 
+		<a href="#" class="profile__overlay-link" id="cancel">Cancel</a>
 	</div>
 </div>
 
@@ -93,5 +107,5 @@
 		})
 	})
 </script>
-
+<script src="/js/follow.js"></script>
 {{>layout/footer}}
