@@ -1,12 +1,12 @@
 package com.cos.instargram.domain.follow;
 
-
-
-import javax.transaction.Transactional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import com.cos.instargram.domain.user.User;
 
 public interface  FollowRepository extends JpaRepository<Follow, Integer>{
 	
@@ -29,6 +29,9 @@ public interface  FollowRepository extends JpaRepository<Follow, Integer>{
 	@Modifying
 	@Query(value = "DELETE FROM follow WHERE fromUserId = ?1 AND toUserId = ?2", nativeQuery = true)
 	int mUnFollow(int loginUserId, int pageUserId);
+	
+	
+	
 
 	
 
