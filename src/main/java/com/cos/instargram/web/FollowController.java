@@ -4,6 +4,7 @@ package com.cos.instargram.web;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cos.instargram.config.auth.LoginUserAnnotation;
 import com.cos.instargram.config.auth.dto.LoginUser;
+import com.cos.instargram.domain.follow.FollowRepository;
 import com.cos.instargram.service.FollowService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,10 +28,10 @@ public class FollowController {
 		return "follow/following-list";
 	}
 	
-	@GetMapping("/follow/followerList/{userId}")
-	public String followerList(@PathVariable int userId) {
-		return "follow/follower-list";
-	}
+//	@GetMapping("/follow/followerList/{userId}")
+//	public String followerList(@PathVariable int userId) {
+//		return "follow/follower-list";
+//	}
 	
 	@PostMapping("/follow/{id}")
 	public ResponseEntity<?> follow(@PathVariable int id,
@@ -42,10 +44,15 @@ public class FollowController {
 	public ResponseEntity<?> unFollow(@PathVariable int id,
 			@LoginUserAnnotation LoginUser loginUser) {
 		followService.팔로우취소(loginUser.getId(), id);
-		return new ResponseEntity<String>("ok", HttpStatus.OK);
-		
+		return new ResponseEntity<String>("ok", HttpStatus.OK);		
 	}
 	
+	@GetMapping("/follow/followerList/{id}") //이 페이지의 유저의 아이디
+	public String followList(@PathVariable int id, @LoginUserAnnotation LoginUser loginUser, Model model) {
+		model.addAttribute("users", followService.팔로워리스트(loginUser.getId()));
+		return "follow/follower-list";
+	}
+		
 	
 
 }

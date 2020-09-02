@@ -2,9 +2,12 @@ package com.cos.instargram.domain.user;
 
 
 import java.sql.Timestamp;
+
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,11 +15,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.cos.instargram.domain.image.Image;
+
+import com.cos.instargram.web.dto.FollowerListRespDto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,6 +29,22 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+//spring으로 회귀
+@SqlResultSetMapping(
+		name = "FollowerListDtoMapping",
+		classes = @ConstructorResult(
+			targetClass = FollowerListRespDto.class,
+			columns = {
+					@ColumnResult(name="id", type = Integer.class),
+					@ColumnResult(name="name", type = String.class),
+					@ColumnResult(name="username", type = String.class),
+					@ColumnResult(name="matpal", type = String.class)
+					//원시자료형만 가능 오브젝트는 안됨.
+			}
+			)
+		)
+
 
 @Entity
 @Data

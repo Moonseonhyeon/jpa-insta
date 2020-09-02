@@ -39,7 +39,7 @@ import lombok.NoArgsConstructor;
 					@ColumnResult(name="imageUrl", type = String.class),
 					@ColumnResult(name="likeCount", type = Integer.class),
 					@ColumnResult(name="commentCount", type = Integer.class)
-					//워시자료형만 가능 오브젝트는 안됨.
+					//원시자료형만 가능 오브젝트는 안됨.
 			}
 			)
 		)
