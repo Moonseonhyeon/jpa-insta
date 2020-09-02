@@ -52,8 +52,7 @@ public class ImageController {
 	}
 	
 	@GetMapping("/image/explore")
-	public String imageExplore(@LoginUserAnnotation LoginUser loginUser, Model model) {
-		
+	public String imageExplore(@LoginUserAnnotation LoginUser loginUser, Model model) {		
 		model.addAttribute("images", imageService.인기사진가져오기(loginUser.getId()));
 		return "image/explore";
 	}

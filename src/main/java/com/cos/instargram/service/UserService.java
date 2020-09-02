@@ -31,6 +31,7 @@ public class UserService {
 	
 	@PersistenceContext
 	EntityManager em;
+	
 	private final UserRepository userRepository;
 	private final FollowRepository followRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
