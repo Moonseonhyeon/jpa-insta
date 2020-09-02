@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FollowerListRespDto {
+public class FollowListRespDto {
 	private int id;
 	private String name;
 	private String username;
+	private String profileImage;	
 	private String matpal;
 }

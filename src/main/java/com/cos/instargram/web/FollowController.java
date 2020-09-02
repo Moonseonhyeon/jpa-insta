@@ -48,10 +48,19 @@ public class FollowController {
 	}
 	
 	@GetMapping("/follow/followerList/{id}") //이 페이지의 유저의 아이디
-	public String followList(@PathVariable int id, @LoginUserAnnotation LoginUser loginUser, Model model) {
-		model.addAttribute("users", followService.팔로워리스트(loginUser.getId()));
+	public String followerList(@PathVariable int id, Model model) {
+		model.addAttribute("users", followService.팔로워리스트(id));
 		return "follow/follower-list";
 	}
+	
+	@GetMapping("/follow/followingList/{id}") //이 페이지의 유저의 아이디
+	public String followingList(@PathVariable int id, @LoginUserAnnotation LoginUser loginUser, Model model) {
+		model.addAttribute("users", followService.팔로잉리스트(loginUser.getId()));
+		return "follow/follower-list";
+	}
+
+	
+	
 		
 	
 

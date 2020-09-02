@@ -20,8 +20,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-
-import com.cos.instargram.web.dto.FollowerListRespDto;
+import com.cos.instargram.web.dto.FollowListRespDto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -34,11 +33,12 @@ import lombok.NoArgsConstructor;
 @SqlResultSetMapping(
 		name = "FollowerListDtoMapping",
 		classes = @ConstructorResult(
-			targetClass = FollowerListRespDto.class,
+			targetClass = FollowListRespDto.class,
 			columns = {
 					@ColumnResult(name="id", type = Integer.class),
 					@ColumnResult(name="name", type = String.class),
 					@ColumnResult(name="username", type = String.class),
+					@ColumnResult(name="profileImage", type = String.class),
 					@ColumnResult(name="matpal", type = String.class)
 					//원시자료형만 가능 오브젝트는 안됨.
 			}
