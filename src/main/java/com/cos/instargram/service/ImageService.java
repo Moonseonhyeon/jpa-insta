@@ -67,4 +67,11 @@ public class ImageService {
 				}
 	}
 	
+	@Transactional(readOnly = true)
+	public List<Image> 인기사진가져오기(int loginUserId) {
+		System.out.println("사진 가져오기");		
+		return imageRepository.mNonFollowImage(loginUserId);
+	}
+	
+	
 }

@@ -3,6 +3,7 @@ package com.cos.instargram.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class ImageController {
 	
-	private final ImageService ImageService;
+	private final ImageService imageService;
 	
 	@GetMapping({" ", "/",  "/image/feed"})
 	public String feed(
@@ -46,12 +47,14 @@ public class ImageController {
 	public String imageUpload(
 			@LoginUserAnnotation LoginUser loginUser,
 			ImageReqDto imageReqDto) {		
-		ImageService.사진업로드(imageReqDto, loginUser.getId());		
+		imageService.사진업로드(imageReqDto, loginUser.getId());		
 		return "redirect:/";
 	}
 	
 	@GetMapping("/image/explore")
-	public String imageExplore() {
+	public String imageExplore(@LoginUserAnnotation LoginUser loginUser, Model model) {
+		
+		model.addAttribute("images", imageService.인기사진가져오기(loginUser.getId()));
 		return "image/explore";
 	}
 	
