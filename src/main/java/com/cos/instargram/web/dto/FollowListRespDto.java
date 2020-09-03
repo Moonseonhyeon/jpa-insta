@@ -14,5 +14,6 @@ public class FollowListRespDto {
 	private String name;
 	private String username;
 	private String profileImage;	
-	private String matpal;
+	private Boolean followState;
+	private Boolean equalUserState;
 }

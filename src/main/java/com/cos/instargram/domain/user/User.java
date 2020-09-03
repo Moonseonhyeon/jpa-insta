@@ -31,7 +31,9 @@ import lombok.NoArgsConstructor;
 
 //spring으로 회귀
 @SqlResultSetMapping(
-		name = "FollowerListDtoMapping",
+
+		name = "FollowListDtoMapping",
+
 		classes = @ConstructorResult(
 			targetClass = FollowListRespDto.class,
 			columns = {
@@ -39,7 +41,8 @@ import lombok.NoArgsConstructor;
 					@ColumnResult(name="name", type = String.class),
 					@ColumnResult(name="username", type = String.class),
 					@ColumnResult(name="profileImage", type = String.class),
-					@ColumnResult(name="matpal", type = String.class)
+					@ColumnResult(name="followState", type = Boolean.class),
+					@ColumnResult(name="equalUserState", type = Boolean.class)
 					//원시자료형만 가능 오브젝트는 안됨.
 			}
 			)

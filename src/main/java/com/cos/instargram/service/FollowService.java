@@ -38,45 +38,68 @@ public class FollowService {
 		System.out.println("팔로우취소 result : "+result);
 	}
 	
-	@Transactional(readOnly = true)
-	public List<FollowListRespDto> 팔로워리스트(int pageUserId) {
-			
+
+//	@Transactional(readOnly = true)
+//	public List<FollowListRespDto> 팔로워리스트(int loginUserId, int pageUserId) {
+//			
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("SELECT u.id, u.name, u.username, u.profileImage, ");
+//		sb.append("(SELECT true FROM follow f2 ");
+//		sb.append("WHERE f2.fromUserID = ? AND f2.toUserId in ( ");
+//		sb.append("SELECT u.id ");
+//		sb.append("FROM user u INNER JOIN follow f1 ");
+//		sb.append("ON u.id = f1.fromUserId ");
+//		sb.append("WHERE f1.toUserId = ? ");
+//		sb.append(")) as matpal ");
+//		sb.append("FROM user u INNER JOIN follow f1 ");
+//		sb.append("ON u.id = f1.fromUserId ");
+//		sb.append("WHERE f1.toUserId = ? ");
+//		
+//		String q = sb.toString();
+//		Query query = em.createNativeQuery(q, "FollowerListDtoMapping")
+//				.setParameter(1, loginUserId)
+//				.setParameter(2, pageUserId)
+//				.setParameter(3, pageUserId);
+//		List<FollowListRespDto> followerListIEntity = query.getResultList(); 
+//		return followerListIEntity;
+//	}
+	
+	public List<FollowListRespDto> 팔로워리스트(int loginUserId, int pageUserId){
+		// 첫번째 물음표 loginUserId, 두번째 물음표 pageUserId
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT u.id, u.name, u.username, u.profileImage, ");
-		sb.append("(select true ");
-		sb.append("from follow f2 ");
-		sb.append("where f1.fromUserId = f2.toUserId ");
-		sb.append("and f1.toUserId = f2.fromUserId) as matpal ");
-		sb.append("FROM user u INNER JOIN follow f1 ");
-		sb.append("ON u.id = f1.toUserId ");
-		sb.append("AND fromUserId = ? ");
-		
+		sb.append("select u.id,u.username,u.name,u.profileImage, ");
+		sb.append("if(u.id = ?, true, false) equalUserState,");
+		sb.append("if((select true from follow where fromUserId = ? and toUserId = u.id), true, false) as followState ");
+		sb.append("from follow f inner join user u on f.fromUserId = u.id ");
+		sb.append("and f.toUserId = ?");
 		String q = sb.toString();
-		Query query = em.createNativeQuery(q, "FollowerListDtoMapping").setParameter(1, pageUserId);
-		List<FollowListRespDto> followerListIFollowEntity = query.getResultList(); 
-		return followerListIFollowEntity;
+
+		Query query = em.createNativeQuery(q, "FollowListDtoMapping")
+				.setParameter(1, loginUserId)
+				.setParameter(2, loginUserId)
+				.setParameter(3, pageUserId);
+		List<FollowListRespDto> followerListEntity = query.getResultList();
+		return followerListEntity;
 	}
 	
-	@Transactional(readOnly = true)
-	public List<FollowListRespDto> 팔로잉리스트(int loginUserId) {
-			
+	
+	public List<FollowListRespDto> 팔로잉리스트(int loginUserId, int pageUserId){
+		// 첫번째 물음표 loginUserId, 두번째 물음표 pageUserId
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT  u.id, u.name, u.username, u.profileImage, ");
-		sb.append("(select true ");
-		sb.append("from follow f2 ");
-		sb.append("where f1.fromUserId = f2.toUserId ");
-		sb.append("and f1.toUserId = f2.fromUserId) as matpal ");
-		sb.append("FROM user u INNER JOIN follow f1 ");
-		sb.append("ON u.id = f1.toUserId ");
-		sb.append("AND fromUserId = ? ");
-		
+		sb.append("select u.id,u.username,u.name,u.profileImage, ");
+		sb.append("if(u.id = ?, true, false) equalUserState,");
+		sb.append("if((select true from follow where fromUserId = ? and toUserId = u.id), true, false) as followState ");
+		sb.append("from follow f inner join user u on f.toUserId = u.id ");
+		sb.append("and f.fromUserId = ?");
 		String q = sb.toString();
-		Query query = em.createNativeQuery(q, "FollowerListDtoMapping").setParameter(1, loginUserId);
-		List<FollowListRespDto> followerListIFollowEntity = query.getResultList(); 
-		return followerListIFollowEntity;
+
+		Query query = em.createNativeQuery(q, "FollowListDtoMapping")
+				.setParameter(1, loginUserId)
+				.setParameter(2, loginUserId)
+				.setParameter(3, pageUserId);
+		List<FollowListRespDto> followListEntity = query.getResultList();
+		return followListEntity;
 	}
 	
-	
-	
-	
+
 }
