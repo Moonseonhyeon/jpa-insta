@@ -1,3 +1,5 @@
+//무한 스크롤
+
 let page = 0;
 
 $(window).scroll(function() {
@@ -65,17 +67,3 @@ async function load_feed_box(){
 	    $("#feed").append(feed_box);
 	});
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

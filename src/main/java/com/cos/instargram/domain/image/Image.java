@@ -18,10 +18,13 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.cos.instargram.domain.comment.Comment;
+import com.cos.instargram.domain.likes.Likes;
 import com.cos.instargram.domain.tag.Tag;
 import com.cos.instargram.domain.user.User;
 import com.cos.instargram.web.dto.UserProfileImageRespDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -66,8 +69,22 @@ public class Image {
 	@JsonIgnoreProperties({"image"}) //이렇게 image를 select할 때 접근할 때 Tag내부의 image는 json이 getter호출 하지마~! //Jackson한테 내리는 명령어 //무함참조 막아주는 방법임.
 	private List<Tag> tags;
 	
+	//@JsonManagedReference //여기서 Comment호출할 때 그 안에 image 호출하고 또 그안에 comment만 호출하지 말기.
+	@JsonIgnoreProperties({"image"}) //여기서 Comment호출할 때 그 안에 image는 무시. 이미 내가 알고 있음. 
+	@OneToMany(mappedBy = "image")
+	private List<Comment> comments;
+	
+	@JsonIgnoreProperties({"image"})
+	@OneToMany(mappedBy = "image")
+	private List<Likes> likes;
+	
+	//Timestamp보다 LocalDate를 더 많이 쓰기도 함.
 	@CreationTimestamp
 	private Timestamp createDate;
 	
+	@Transient
+	private int likeCount;
 
+	@Transient
+	private boolean likeState;
 }

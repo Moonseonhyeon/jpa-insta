@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.instargram.domain.image.Image;
 import com.cos.instargram.domain.image.ImageRepository;
+import com.cos.instargram.domain.likes.Likes;
 import com.cos.instargram.domain.tag.Tag;
 import com.cos.instargram.domain.tag.TagRepository;
 import com.cos.instargram.domain.user.User;
@@ -29,6 +30,20 @@ public class ImageService {
 	private final ImageRepository imageRepository;
 	private final TagRepository tagRepository;
 	private final UserRepository userRepository;
+	
+	@Transactional(readOnly = true)
+	public List<Image> 피드사진(int loginUserId){
+		List<Image> images = imageRepository.mFeeds(loginUserId);
+		for (Image image : images) {
+			image.setLikeCount(image.getLikes().size());
+			for (Likes like : image.getLikes()) {
+				if(like.getUser().getId() == loginUserId) {
+					image.setLikeState(true);
+				}
+			}
+		}
+		return images;
+	}
 	
 	// C:/src/springwork/instargram/src/main/resources/upload/ -> yaml파일에 설정되어있음.	
 	@Value("${file.path}")

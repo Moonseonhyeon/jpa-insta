@@ -15,6 +15,7 @@ public class ImageReqDto {
 	private String location;
 	private String tags;
 	
+	
 	public Image toEntity(String imageUrl, User userEntity) {
 		return Image.builder()
 				.location(location)
