@@ -28,6 +28,7 @@ public class ImageController {
 	
 	@GetMapping({" ", "/",  "/image/feed"})
 	public String feed(
+			String tag,
 			@LoginUserAnnotation LoginUser loginUser,
 			Model model
 			//@AuthenticationPrincipal PrincipalDetails principal, HttpSession session
@@ -37,15 +38,16 @@ public class ImageController {
 		//LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
 		System.out.println("loginUser : " + loginUser);
 		//System.out.println("cosAnnotation : "+cos);
-		model.addAttribute("images", imageService.피드사진(loginUser.getId()));
+		model.addAttribute("images", imageService.피드사진(loginUser.getId(), tag));
 		return "image/feed";
 	}
 	
 	@GetMapping({"/test/image/feed"})
 	public @ResponseBody List<Image> testFeed(
+			String tag,
 			@LoginUserAnnotation LoginUser loginUser
 			) {
-		List<Image> images = imageService.피드사진(loginUser.getId());
+		List<Image> images = imageService.피드사진(loginUser.getId(), tag);
 		return images;
 	}
 	
