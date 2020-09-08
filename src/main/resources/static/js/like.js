@@ -16,7 +16,7 @@ async function unLike(imageId){
 		location.reload();
 	}
 }
-	
+
 // fa fa-heart-o heart (빈하트)
-// fa heart heart-clicked fa-heart (빨간하트)
+// fa heart heart-clicked fa-heart (빨간하트) 
 

@@ -1,7 +1,5 @@
 package com.cos.instargram.service;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +16,14 @@ public class CommentService {
 	
 	@Transactional
 	public void 댓글쓰기(CommentRespDto commentRespDto) {
-		System.out.println("commentRespDto : "+ commentRespDto);
-		commentRepository.mSave(commentRespDto.getUserId(), commentRespDto.getImageId(), commentRespDto.getContent());	
+		commentRepository.mSave( 
+				commentRespDto.getUserId(), 
+				commentRespDto.getImageId(), 
+				commentRespDto.getContent());
 	}
 	
+	@Transactional
+	public void 댓글삭제(int id) {
+		commentRepository.deleteById(id);
+	}
 }

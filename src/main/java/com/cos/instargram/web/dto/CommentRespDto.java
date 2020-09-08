@@ -7,6 +7,4 @@ public class CommentRespDto {
 	private String content;
 	private int userId;
 	private int imageId;
-
-	
 }

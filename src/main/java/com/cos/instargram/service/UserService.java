@@ -131,7 +131,7 @@ public class UserService {
 		StringBuilder sb = new StringBuilder();
 		sb.append("select im.id, im.imageUrl, ");
 		sb.append("(select count(*) from likes lk where lk.imageId = im.id) as likeCount, ");
-		sb.append("(select count(*) from comment ct where ct.image_id = im.id) as commentCount ");
+		sb.append("(select count(*) from comment ct where ct.imageId = im.id) as commentCount ");
 		sb.append("from image im where im.userId = ? ");
 		String q = sb.toString();
 		Query query = em.createNativeQuery(q, "UserProfileImageRespDtoMapping").setParameter(1, id); //em이 영속화 됐음. //영속화를 없애는 방법도 있음. em.detach(imagesEntity); -> 이런씩으로 em으로 영속화 관리를 할 수 있음.

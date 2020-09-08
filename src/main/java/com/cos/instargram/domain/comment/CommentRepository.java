@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface CommentRepository extends JpaRepository<Comment, Integer>{
 	
-	//커밋까지 하려면 ExcuteUpdateQuery()
+	//커밋까지 하는 어노테이션- ExcuteUpdateQuery()처럼
 	@Modifying
-	@Query(value="INSERT INTO comment(userId, imageId, content) VALUES(?1, ?2, ?3)", nativeQuery = true)
+	@Query(value = "INSERT INTO comment(userId, imageId, content) VALUES(?1, ?2, ?3)", nativeQuery = true)
 	int mSave(int userId, int imageId, String content);
 }
