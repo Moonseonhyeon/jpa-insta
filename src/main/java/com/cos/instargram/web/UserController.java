@@ -48,11 +48,11 @@ public class UserController {
 
 	// 원래는 put으로 하는게 맞는데 편하게 하기 위해
 	@PostMapping("/user/profileUpload")
-	public String userProfileUpload(@RequestParam("profileImage") MultipartFile file, int userId,
+	public String userProfileUpload(@RequestParam("profileImage") MultipartFile file,
 			@LoginUserAnnotation LoginUser loginUser){
-		if(userId == loginUser.getId()) {
+
 		userService.프로필사진업로드(loginUser, file);
-		}
+		
 		return "redirect:/user/"+loginUser.getId();
 	}
 	

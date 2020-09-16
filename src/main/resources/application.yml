@@ -51,6 +51,6 @@ cos: #변수임
   secret: 겟인데어 #자바에서 가져다 쓸 수 있음
 
 file:
-  path: C:/src/springwork/instargram/src/main/resources/upload/
+  path: C:\src\springwork\jpa-springboot-instagrame-security-oauth-mustache/src/main/resources/upload/
   # 배포 할 때 내 workspace에서 Target으로 파일들이 옮겨지는 속도가 좀 걸리니까
   # 내가 workspace에 사진 경로말고 절대경로로 Target에 파일로 설정한 것 
