@@ -50,9 +50,9 @@ public class FollowController {
 	}
 	
 	@GetMapping("/follow/followingList/{id}") //이 페이지의 유저의 아이디
-	public @ResponseBody List<FollowListRespDto>  followingList(@LoginUserAnnotation LoginUser loginUser, @PathVariable int id, Model model) {
-		//model.addAttribute("users", followService.팔로잉리스트(loginUser.getId(), id));
-		return followService.팔로잉리스트(loginUser.getId(), id);
+	public String followingList(@LoginUserAnnotation LoginUser loginUser, @PathVariable int id, Model model) {
+		model.addAttribute("users", followService.팔로잉리스트(loginUser.getId(), id));
+		return "follow/following-list";
 	}
 
 
