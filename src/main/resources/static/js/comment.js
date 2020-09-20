@@ -41,7 +41,7 @@ function commentDelete(commentId) {
 	}).then(function (res) {
 		return res.text();
 	}).then(function (res) {
-		alert("댓글 삭제 성공");
+		//alert("댓글 삭제 성공");
 		location.reload();
 	});
 }

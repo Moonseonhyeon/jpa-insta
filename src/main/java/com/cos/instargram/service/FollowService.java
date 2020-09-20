@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.cos.instargram.domain.follow.FollowRepository;
+import com.cos.instargram.domain.noti.NotiRepository;
+import com.cos.instargram.domain.noti.NotiType;
 import com.cos.instargram.domain.user.User;
 import com.cos.instargram.web.dto.FollowListRespDto;
 
@@ -24,11 +26,13 @@ public class FollowService {
 	EntityManager em;
 	
 	private final FollowRepository followRepository;
+	private final NotiRepository notiRepository;
 
 	// 서비스단에서 롤백하려면 throw를 runtimeException을 던져야됨.
 	@Transactional
 	public void 팔로우(int loginUserId, int pageUserId) {
 		int result = followRepository.mFollow(loginUserId, pageUserId);
+		notiRepository.mSave(loginUserId, pageUserId, NotiType.FOLLOW.name());
 		System.out.println("팔로우 result : "+result);
 	}
 

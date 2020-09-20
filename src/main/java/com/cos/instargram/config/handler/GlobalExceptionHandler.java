@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cos.instargram.config.handler.ex.MyImageIdNotFoundException;
 import com.cos.instargram.config.handler.ex.MyUserIdNotFoundException;
 import com.cos.instargram.config.handler.ex.MyUsernameNotFoundException;
 import com.cos.instargram.util.Script;
@@ -22,5 +23,10 @@ public class GlobalExceptionHandler {
 	return Script.alert(e.getMessage());
 	}
 	
-
+	@ExceptionHandler(value=MyImageIdNotFoundException.class)
+	public String myImageIdNotFoundException(Exception e) {
+		return Script.alert(e.getMessage());
+	}
+	
+	
 }

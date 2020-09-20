@@ -26,7 +26,7 @@ public class ImageController {
 	
 	private final ImageService imageService;
 	
-	@GetMapping({" ", "/",  "/image/feed"})
+	@GetMapping({" ", "/", "/image/feed"})
 	public String feed(
 			String tag,
 			@LoginUserAnnotation LoginUser loginUser,
