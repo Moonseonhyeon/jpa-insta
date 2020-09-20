@@ -21,7 +21,7 @@ spring:
   jpa:
     open-in-view: true #db connection을 request 할 때부터 유지해서 view단 까지 오픈해줌 그래서 lazy loading을 가능하게 해준다. 
     hibernate:
-      ddl-auto: update #update create
+      ddl-auto: update #update create #배포할때는 none으로!
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
