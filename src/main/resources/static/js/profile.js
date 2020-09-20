@@ -1,4 +1,4 @@
-function userUpdate() {
+function userUpdate(userId) {
 	let data = $("#frm").serialize();
 	console.log(1, data);
 
@@ -12,6 +12,6 @@ function userUpdate() {
 		return res.text();
 	}).then(function (res) {
 		alert("회원수정 성공");
-		location.href = "/user/{{userId}}";
+		location.href = "/user/" + userId;
 	});
 }

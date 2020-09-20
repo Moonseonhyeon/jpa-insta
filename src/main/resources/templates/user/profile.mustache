@@ -29,7 +29,7 @@
 				{{#respDto.pageHost}}
 					<a href="/image/uploadForm">
 						<button class="profile_edit_btn">사진등록</button>	
-					</a>
+					</a
 					<a href="#">
 						<i class="fa fa-cog fa-lg"></i>
 					</a>
@@ -86,7 +86,8 @@
 
 <div class="profile__overlay">
 	<i class="fa fa-times"></i>
-	<div class="profile__overlay-container">
+	<div class="profile__overlay-container">  
+		<a href="/user/profileEdit" class="profile__overlay-link" id="logout">회원 수정</a>
 		<a href="/auth/logout" class="profile__overlay-link" id="logout">로그아웃</a> 
 		<a href="#" class="profile__overlay-link" id="cancel">취소</a>
 	</div>
